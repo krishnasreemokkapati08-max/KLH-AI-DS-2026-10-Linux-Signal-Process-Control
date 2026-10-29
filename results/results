@@ -1,1 +1,23 @@
+# Results
+
+## Expected terminal behaviour
+
+After running `./controller`, output should resemble:
+
+```text
+Controller started worker PID=1234
+Commands: p = pause, r = resume, t = terminate, q = quit
+Worker started. PID=1234
+PID 1234: working... 1
+PID 1234: working... 2
+```
+
+The PID and counter are examples and will differ.
+
+- Enter `p` and press Enter: worker output should stop.
+- Enter `r` and press Enter: worker output should continue.
+- Enter `t` or `q` and press Enter: the worker receives `SIGTERM`, prints its safe-exit message, and the controller waits for it to finish.
+
+## Actual results
+Record the date, Linux distribution, commands used, and actual terminal output here after running the program. This file intentionally does not claim that tests were executed.
 
