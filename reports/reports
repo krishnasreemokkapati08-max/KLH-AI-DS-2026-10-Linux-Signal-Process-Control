@@ -1,1 +1,26 @@
+# Project Report
+
+## Implementation summary
+The project contains a worker process and a controller process. The worker prints its PID and a counter at two-second intervals. The controller launches it and accepts single-character commands from the terminal.
+
+## Test plan
+| Test | Action | Expected observation |
+|---|---|---|
+| 1 | Start `./controller` | Controller prints worker PID; worker begins printing |
+| 2 | Enter `p` | Worker output pauses |
+| 3 | Enter `r` | Worker output resumes |
+| 4 | Enter `t` | Controller requests termination; worker exits safely |
+| 5 | Start again and press Ctrl+C in the worker terminal context | `SIGINT` handler requests safe exit when delivered to the worker |
+
+## Test results
+Fill this section with the actual observations from your own terminal run. Do not report a test as passed until it has been executed.
+
+## Limitations
+- This is a demonstration project, not a production process supervisor.
+- `SIGSTOP` and `SIGCONT` are handled by the operating system, not by a custom worker handler.
+- The controller currently manages one worker process.
+- Runtime PIDs and counter values change between runs.
+
+## Conclusion
+The project demonstrates how Linux process creation and signals can be used to coordinate a worker process. It illustrates signal registration, signal delivery, process identification, pause/resume behaviour, and orderly child-process cleanup.
 
