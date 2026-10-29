@@ -1,1 +1,51 @@
+# Project Documentation
+
+## Project title
+Linux Signal-Based Process Communication and Control System
+
+## Abstract
+The Linux Signal-Based Process Communication and Control System demonstrates communication and control between processes using Linux signals. A controller creates a worker process and sends signals to control its execution. The worker registers handlers for `SIGTERM` and `SIGINT`, performs repeated work, and exits safely when a termination signal is received. The controller uses `fork()`, `exec`, `kill()`, and `waitpid()` to demonstrate process creation, signal delivery, monitoring, and cleanup.
+
+## Problem statement
+Managing running processes requires a mechanism to notify, pause, resume, and terminate them. This project demonstrates how Linux signals can provide a lightweight process-control mechanism.
+
+## Objectives
+1. Demonstrate process creation and identification.
+2. Use signals for process control.
+3. Handle termination signals safely in a worker.
+4. Demonstrate `fork()`, `exec()`, `kill()`, and `waitpid()`.
+5. Observe process behaviour through terminal output.
+
+## Methodology
+1. The controller calls `fork()` to create a child process.
+2. The child uses `execl()` to run the worker executable.
+3. The worker registers handlers for `SIGTERM` and `SIGINT`.
+4. The worker prints its PID and a counter every two seconds.
+5. The controller sends `SIGSTOP` to pause, `SIGCONT` to resume, and `SIGTERM` to request termination.
+6. The controller calls `waitpid()` to collect the child process after it exits.
+
+**Flow:** Start controller → create worker → register handlers → perform work → send control signal → observe response → wait for exit.
+
+## Operating-system concepts and APIs
+| Concept/API | Purpose |
+|---|---|
+| Process management | Creates and manages processes |
+| PID | Identifies a process |
+| `fork()` | Creates a child process |
+| `execl()` | Replaces the child process image with the worker program |
+| `sigaction()` | Registers signal handlers |
+| `kill()` | Sends a signal to a process |
+| `SIGSTOP` / `SIGCONT` | Pause and resume the worker |
+| `SIGTERM` / `SIGINT` | Request worker termination |
+| `waitpid()` | Waits for the worker process to finish |
+| `sleep()` | Adds a two-second interval between work messages |
+
+## Tools and platform
+- Linux / Ubuntu
+- C language
+- GCC compiler
+- Terminal
+
+## Current implementation scope
+The supplied worker handles `SIGTERM` and `SIGINT` for safe shutdown. Pause/resume are implemented by the controller using `SIGSTOP` and `SIGCONT`; these are handled by the operating system and cannot be caught by the worker.
 
